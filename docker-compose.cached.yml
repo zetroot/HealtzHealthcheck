@@ -1,0 +1,117 @@
+volumes:
+  prometheus_data: {}
+  
+services: 
+  init:
+    build: ./ServiceB
+    ports:
+      - "8080:8080"
+    environment:
+      - Urls__0=http://layer1_1:8080
+      - Urls__1=http://layer1_2:8080
+      - Urls__2=http://layer1_3:8080
+      - Urls__3=http://layer1_4:8080
+      - Urls__4=http://layer1_5:8080
+      
+  layer1_1:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer2:8080
+
+  layer1_2:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer2:8080
+
+  layer1_3:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer2:8080
+
+  layer1_4:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer2:8080
+
+  layer1_5:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer2:8080
+
+  layer2:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://layer3_1:8080
+      - Urls__1=http://layer3_2:8080
+      - Urls__2=http://layer3_3:8080
+      - Urls__3=http://layer3_4:8080
+      - Urls__4=http://layer3_5:8080
+
+  layer3_1:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://core:8080
+  
+  layer3_2:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://core:8080
+
+  layer3_3:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://core:8080
+      
+  layer3_4:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://core:8080
+      
+  layer3_5:
+    build: ./ServiceB
+    environment:
+      - Urls__0=http://core:8080
+
+  core:
+    build: ./ServiceB
+  
+  knocker:
+    build: ./KnockKnocker
+    environment:
+      - TARGET=http://init:8080/health
+  
+  prometheus:
+    command:
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/data/prometheus
+    container_name: prometheus
+    #environment:
+    # LISTEN_ADDRESS: 127.0.0.1
+    ports:
+      - "9090:9090"
+    image: prom/prometheus:latest
+    user: root
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/data/prometheus  
+    
+  
+  nodeexporter:
+    image: prom/node-exporter:latest
+    container_name: nodeexporter
+    restart: unless-stopped
+    ports:
+      - "9100:9100"  
+  
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=foobar
+      - GF_USERS_ALLOW_SIGN_UP=false
+
+    restart: unless-stopped
+    ports:
+      - "3000:3000" 

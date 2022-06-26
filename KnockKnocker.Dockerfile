@@ -3,9 +3,9 @@ WORKDIR /app
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["KnockKnocker.csproj", "."]
+COPY ["sample/KnockKnocker/KnockKnocker.csproj", "."]
 RUN dotnet restore "KnockKnocker.csproj"
-COPY . .
+COPY ./sample/KnockKnocker .
 RUN dotnet build "KnockKnocker.csproj" -c Release -o /app/build
 
 FROM build AS publish

@@ -4,9 +4,10 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
 WORKDIR /src
-COPY ["ServiceA.csproj", "."]
-RUN dotnet restore "ServiceA.csproj"
-COPY . .
+COPY ./sample/ServiceA/ServiceA.csproj .
+RUN dotnet restore "./sample/ServiceA/ServiceA.csproj"
+COPY ./sample/ServiceA .
+WORKDIR /src/sample/ServiceA
 RUN dotnet build "ServiceA.csproj" -c Release -o /app/build
 
 FROM build AS publish
