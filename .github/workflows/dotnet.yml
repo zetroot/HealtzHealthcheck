@@ -1,0 +1,41 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "master", release/* ]
+    
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    
+    - name: Restore dependencies
+      run: dotnet restore
+    
+    - name: Build
+      run: dotnet build --no-restore --configuration Release --nologo
+      
+    - name: Pack
+      run: dotnet pack --output ./artifacts --no-build --configuration Release --nologo
+
+    - name: Save
+      uses: actions/upload-artifact@v2
+      with:
+        name: Artifacts
+        path: |
+          ./artifacts
+          !**/*.snupkg
+    
+    - name: Publish
+      env:
+        NUGET_AUTH_TOKEN: ${{ secrets.NUGET_TOKEN }}
+      run: dotnet nuget push ./artifacts/*.snupkg --api-key $NUGET_AUTH_TOKEN --source https://api.nuget.org/v3/index.json    
+    
