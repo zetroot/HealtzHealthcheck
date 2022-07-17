@@ -99,8 +99,8 @@ internal sealed class CachedHealthCheckService : HealthCheckService
     {
         cancellationToken.ThrowIfCancellationRequested();
 
-        var scope = _scopeFactory.CreateAsyncScope();
-        await using (scope.ConfigureAwait(false))
+        var scope = _scopeFactory.CreateScope();
+        using (scope)
         {
             var healthCheck = registration.Factory(scope.ServiceProvider);
 
