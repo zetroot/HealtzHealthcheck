@@ -1,14 +1,16 @@
 using Prometheus;
-using ServiceA;
+using ThrottledHealthCheck;
 
 var builder = WebApplication.CreateBuilder(args);
+var services = builder.Configuration.GetSection("Services").Get<List<string>>();
 
-var services = builder.Configuration.GetSection("Services").Get<Services>();
 
 var hcBuilder = builder.Services
     .AddHealthChecks();
+if (builder.Configuration.GetSection("THROTTLE").Get<bool>()) 
+    builder.Services.ThrottleHealthChecks();
 var healthEndpoint = new Uri("/health", UriKind.Relative);
-foreach (var service in services?.Urls ?? new List<string>())
+foreach (var service in services ?? new List<string>())
 {
     hcBuilder.AddUrlGroup(new Uri(new Uri(service), healthEndpoint), name: service);
 }
