@@ -3,80 +3,119 @@ volumes:
   
 services: 
   init:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     ports:
       - "8080:8080"
     environment:
-      - Services__Urls__0=http://layer1_1:8080
-      - Services__Urls__1=http://layer1_2:8080
-      - Services__Urls__2=http://layer1_3:8080
-      - Services__Urls__3=http://layer1_4:8080
-      - Services__Urls__4=http://layer1_5:8080
+      - Services__0=http://layer1_1:8080
+      - Services__1=http://layer1_2:8080
+      - Services__2=http://layer1_3:8080
+      - Services__3=http://layer1_4:8080
+      - Services__4=http://layer1_5:8080
+      - THROTTLE=true
       
   layer1_1:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer2:8080
+      - Services__0=http://layer2:8080
+      - THROTTLE=true
 
   layer1_2:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer2:8080
+      - Services__0=http://layer2:8080
+      - THROTTLE=true
 
   layer1_3:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer2:8080
+      - Services__0=http://layer2:8080
+      - THROTTLE=true
 
   layer1_4:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer2:8080
+      - Services__0=http://layer2:8080
+      - THROTTLE=true
 
   layer1_5:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer2:8080
+      - Services__0=http://layer2:8080
+      - THROTTLE=true
 
   layer2:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://layer3_1:8080
-      - Services__Urls__0=http://layer3_2:8080
-      - Services__Urls__0=http://layer3_3:8080
-      - Services__Urls__0=http://layer3_4:8080
-      - Services__Urls__0=http://layer3_5:8080
+      - Services__0=http://layer3_1:8080
+      - Services__1=http://layer3_2:8080
+      - Services__2=http://layer3_3:8080
+      - Services__3=http://layer3_4:8080
+      - Services__4=http://layer3_5:8080
+      - THROTTLE=true
 
   layer3_1:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://core:8080
+      - Services__0=http://core:8080
+      - THROTTLE=true
   
   layer3_2:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://core:8080
+      - Services__0=http://core:8080
+      - THROTTLE=true
 
   layer3_3:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://core:8080
+      - Services__0=http://core:8080
+      - THROTTLE=true
       
   layer3_4:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://core:8080
+      - Services__0=http://core:8080
       
   layer3_5:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
     environment:
-      - Services__Urls__0=http://core:8080
+      - Services__0=http://core:8080
+      - THROTTLE=true
 
   core:
-    build: ./ServiceA
+    build: 
+      context: .
+      dockerfile: ServiceA.Dockerfile
   
   knocker:
-    build: ./KnockKnocker
+    build: 
+      context: .
+      dockerfile: KnockKnocker.Dockerfile
     environment:
       - TARGET=http://init:8080/health
   
