@@ -10,15 +10,16 @@
     </PropertyGroup>
     
     <PropertyGroup>
-        <Version>6.0.1</Version>
+        <Version>6.0.2</Version>
+        <PackageVersion>6.0.2</PackageVersion>
         <IncludeSymbols>true</IncludeSymbols>
         <SymbolPackageFormat>snupkg</SymbolPackageFormat>
         <PackageId>ThrottledHealthCheck</PackageId>
-        <PackageVersion>6.0.1</PackageVersion>
         <Authors>zetroot</Authors>
         <Description>Healthcheck service that throttle health checking of dependecies, not to ddos huge microservice applications</Description>
         <ProjectUrl>https://github.com/zetroot/HealtzHealthcheck</ProjectUrl>
         <RepositoryUrl>https://github.com/zetroot/HealtzHealthcheck</RepositoryUrl>
+        <PackageTags>healthchek health aspnetcore healthchecks</PackageTags>
     </PropertyGroup>
 
     <ItemGroup>
