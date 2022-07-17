@@ -8,6 +8,8 @@
         <WarningLevel>9999</WarningLevel>
         <Version>6.0.0</Version>
         <IsPackable>true</IsPackable>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
