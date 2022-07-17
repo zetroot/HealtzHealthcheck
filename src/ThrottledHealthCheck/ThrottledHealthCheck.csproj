@@ -4,6 +4,21 @@
         <TargetFramework>net6.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
+        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+        <WarningLevel>9999</WarningLevel>
+        <IsPackable>true</IsPackable>
+    </PropertyGroup>
+    
+    <PropertyGroup>
+        <Version>6.0.1</Version>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <PackageId>ThrottledHealthCheck</PackageId>
+        <PackageVersion>6.0.1</PackageVersion>
+        <Authors>zetroot</Authors>
+        <Description>Healthcheck service that throttle health checking of dependecies, not to ddos huge microservice applications</Description>
+        <ProjectUrl>https://github.com/zetroot/HealtzHealthcheck</ProjectUrl>
+        <RepositoryUrl>https://github.com/zetroot/HealtzHealthcheck</RepositoryUrl>
     </PropertyGroup>
 
     <ItemGroup>
